@@ -13,6 +13,8 @@ import javax.ws.rs.core.Response;
 public class TestClient {
 
     public static void main(String[] args) {
+
+        /* OLD CLIENT & RESPONSE:
         Client client = ClientBuilder.newClient();
         Response response = client.target("http://localhost:8080/StudentManagement/webservice/students/4")
                 .request().buildGet().invoke();
@@ -21,6 +23,25 @@ public class TestClient {
         System.out.println("Printing a specific student (id: 4):");
         System.out.println(student);
         System.out.println("");
+
+        response.close();
+        */
+
+        Client client = ClientBuilder.newClient();
+        Student stud = new Student();
+        stud.setFirstName("Lady");
+        stud.setSurname("Justinia");
+        stud.setProgram("Law");
+        stud.setAcademicYear(4);
+
+        Entity studEntity = Entity.entity(stud, "application/JSON");
+        Response response = client.target("http://localhost:8080/StudentManagement/webservice/students")
+                .request().buildPost(studEntity).invoke();
+
+        System.out.println("Creating a new student:");
+        System.out.println(response.readEntity(Student.class).getId());
+        System.out.println(" ");
+
         response.close();
 
         response = client.target("http://localhost:8080/StudentManagement/webservice/students")
