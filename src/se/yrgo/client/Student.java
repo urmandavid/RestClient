@@ -1,6 +1,13 @@
 package se.yrgo.client;
 
 public class Student {
+    /**
+     * This Student-class belongs to the REST-client application.
+     * It is used when creating Student objects.
+     *
+     * The class contains fields corresponding to each student.
+     * It also contains Getters, Setters and a toString-method.
+     */
 
     private int id;
     private String firstName;
