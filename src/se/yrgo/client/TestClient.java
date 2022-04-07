@@ -18,14 +18,33 @@ public class TestClient {
 
     public static void main(String[] args) {
 
+        //Creating a student:
+        Client client = ClientBuilder.newClient();
+        Student stud = new Student();
+        stud.setFirstName("Lady");
+        stud.setSurname("Justinia");
+        stud.setProgram("Law");
+        stud.setAcademicYear(4);
+
+        Entity studEntity = Entity.entity(stud, "application/JSON");
+        Response response = client.target("http://localhost:8080/StudentManagement/webservice/students")
+                .request().buildPost(studEntity).invoke();
+
+        System.out.println("Creating a new student:");
+        System.out.println(response.readEntity(Student.class).getId());
+
+        response.close();
+
+        /* UPDATING / DELETING:
+
         //Updating a student (id: 2)
         Student updatedStudent = new Student();
-        updatedStudent.setProgram("Music");
+        updatedStudent.setProgram("Metal");
         updatedStudent.setAcademicYear(3);
 
         Entity sEntity = Entity.entity(updatedStudent,"application/JSON");
 
-        Client client = ClientBuilder.newClient();
+        //Client client = ClientBuilder.newClient();
         Response response = client.target("http://localhost:8080/StudentManagement/webservice/students/2")
                 .request().buildPut(sEntity).invoke();
 
@@ -37,13 +56,15 @@ public class TestClient {
 
 
         //Deleting a student, printing a response:
-        response = client.target("http://localhost:8080/StudentManagement/webservice/students/3")
+        //Client client = ClientBuilder.newClient();
+        Response response = client.target("http://localhost:8080/StudentManagement/webservice/students/3")
                 .request().buildDelete().invoke();
         System.out.println("Delete status was " + response.getStatus());
         System.out.println(" ");
 
         response.close();
 
+        */
 
         //All students in a for loop:
         response = client.target("http://localhost:8080/StudentManagement/webservice/students")
@@ -58,34 +79,7 @@ public class TestClient {
 
     }
 
-        /* Code for testing purposes:
-        //Creating a student:
-        //Client client = ClientBuilder.newClient();
-        Student stud = new Student();
-        stud.setFirstName("Lady");
-        stud.setSurname("Justinia");
-        stud.setProgram("Law");
-        stud.setAcademicYear(4);
-
-        Entity studEntity = Entity.entity(stud, "application/JSON");
-        response = client.target("http://localhost:8080/StudentManagement/webservice/students")
-                .request().buildPost(studEntity).invoke();
-
-        System.out.println("Creating a new student:");
-        System.out.println(response.readEntity(Student.class).getId());
-
-        response.close();
-
-
-        response = client.target("http://localhost:8080/StudentManagement/webservice/students/3")
-                .request("application/JSON").buildGet().invoke();
-
-        System.out.println(response.getHeaders().toString());
-        System.out.println(response.getStatus());
-        System.out.println(response.readEntity(String.class));
-
-        response.close();
-
+        /*
 
         //Printing a specific student:
         response = client.target("http://localhost:8080/StudentManagement/webservice/students/3")
@@ -96,6 +90,17 @@ public class TestClient {
         System.out.println(student);
 
         response.close();
+
+        //Code for testing purposes:
+        response = client.target("http://localhost:8080/StudentManagement/webservice/students/3")
+                .request("application/JSON").buildGet().invoke();
+
+        System.out.println(response.getHeaders().toString());
+        System.out.println(response.getStatus());
+        System.out.println(response.readEntity(String.class));
+
+        response.close();
+
         */
 
 }

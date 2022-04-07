@@ -15,6 +15,22 @@ public class Student {
     private String program;
     private int academicYear;
 
+    public String getProgram() {
+        return program;
+    }
+
+    public void setProgram(String program) {
+        this.program = program;
+    }
+
+    public int getAcademicYear() {
+        return academicYear;
+    }
+
+    public void setAcademicYear(int academicYear) {
+        this.academicYear = academicYear;
+    }
+
     public int getId() {
         return id;
     }
@@ -37,22 +53,6 @@ public class Student {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public String getProgram() {
-        return program;
-    }
-
-    public void setProgram(String program) {
-        this.program = program;
-    }
-
-    public int getAcademicYear() {
-        return academicYear;
-    }
-
-    public void setAcademicYear(int academicYear) {
-        this.academicYear = academicYear;
     }
 
     public String toString() {
