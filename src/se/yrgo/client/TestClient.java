@@ -18,8 +18,23 @@ public class TestClient {
 
     public static void main(String[] args) {
 
-        //Creating a student:
+        //All students in a for loop:
         Client client = ClientBuilder.newClient();
+        Response response = client.target("http://localhost:8080/StudentManagement/webservice/students")
+                .request().buildGet().invoke();
+        List<Student> students = response.readEntity(new GenericType<List<Student>>() {});
+        System.out.println("Printing a List of students:");
+
+        for (Student s : students) {
+            System.out.println(s + ", Program: " + s.getProgram() + ", Academic year: " + s.getAcademicYear());
+        }
+        response.close();
+
+        /* Creating, updating, and deleting students etc.
+        // Remember: ' Client client = ClientBuilder.newClient(); ' & ' Response response = ... '
+
+        //Creating a student:
+        //Client client = ClientBuilder.newClient();
         Student stud = new Student();
         stud.setFirstName("Lady");
         stud.setSurname("Justinia");
@@ -35,9 +50,8 @@ public class TestClient {
 
         response.close();
 
-        /* UPDATING / DELETING:
 
-        //Updating a student (id: 2)
+        //Updating a student (id 2), printing a status-code response:
         Student updatedStudent = new Student();
         updatedStudent.setProgram("Metal");
         updatedStudent.setAcademicYear(3);
@@ -55,7 +69,7 @@ public class TestClient {
         response.close();
 
 
-        //Deleting a student, printing a response:
+        //Deleting a student, printing a status-code response:
         //Client client = ClientBuilder.newClient();
         Response response = client.target("http://localhost:8080/StudentManagement/webservice/students/3")
                 .request().buildDelete().invoke();
@@ -64,25 +78,10 @@ public class TestClient {
 
         response.close();
 
-        */
 
-        //All students in a for loop:
-        response = client.target("http://localhost:8080/StudentManagement/webservice/students")
-                .request().buildGet().invoke();
-        List<Student> students = response.readEntity(new GenericType<List<Student>>() {});
-        System.out.println("Printing a List of students:");
-
-        for (Student s : students) {
-            System.out.println(s + ", Program: " + s.getProgram() + ", Academic year: " + s.getAcademicYear());
-        }
-        response.close();
-
-    }
-
-        /*
-
-        //Printing a specific student:
-        response = client.target("http://localhost:8080/StudentManagement/webservice/students/3")
+        //Printing a specific student (id 3):
+        //Client client = ClientBuilder.newClient();
+        Response response = client.target("http://localhost:8080/StudentManagement/webservice/students/3")
                 .request().buildGet().invoke();
 
         Student student = response.readEntity(Student.class);
@@ -91,8 +90,10 @@ public class TestClient {
 
         response.close();
 
+
         //Code for testing purposes:
-        response = client.target("http://localhost:8080/StudentManagement/webservice/students/3")
+        //Client client = ClientBuilder.newClient();
+        Response response = client.target("http://localhost:8080/StudentManagement/webservice/students/3")
                 .request("application/JSON").buildGet().invoke();
 
         System.out.println(response.getHeaders().toString());
@@ -102,5 +103,7 @@ public class TestClient {
         response.close();
 
         */
+
+    }
 
 }
